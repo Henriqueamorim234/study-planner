@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { useTasks } from "../contexts/TaskContext";
-import { useTheme } from "../contexts/ThemeContext";
 import { EmptyState, ThemeToggle } from "../components/UI";
 import { AddTaskModal, EditTaskModal } from "../components/Modal";
 import { TaskSection } from "../components/Task";
 import { useDispatch, useSelector } from "react-redux";
+import { selectTheme } from "../store/slices/themeSlice";
 import {
   selectCompletedTasks,
   selectPendingTasks,
@@ -24,6 +23,8 @@ function StudyPlannerPage() {
   const tasks = useSelector(selectTasks);
   const pendingTasks = useSelector(selectPendingTasks);
   const completedTasks = useSelector(selectCompletedTasks);
+
+  const theme = useSelector(selectTheme);
 
   const handleAddTask = () => {
     setIsModalOpen(true);
@@ -59,8 +60,6 @@ function StudyPlannerPage() {
   const handleDeleteTask = (taskId) => {
     dispatch(deleteTask(taskId));
   };
-
-  const theme = useTheme();
 
   return (
     <div
